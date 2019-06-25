@@ -1,4 +1,4 @@
-FROM golang:1.12 as build
+FROM golang:1.12
 
 ENV GO111MODULE=on
 
@@ -13,9 +13,6 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 
-FROM scratch
-
-COPY --from=build /http-getter/http-getter /http-getter/
 EXPOSE 8080
 ENTRYPOINT ["/http-getter/http-getter"]
 CMD ["do"]
